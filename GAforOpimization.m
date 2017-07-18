@@ -9,7 +9,7 @@
 % Parameters
 clear variables
 Pc = 0.25;      % Probability of CrossOver
-Pm = 0.01;      % Probability of Mutation
+Pm = 0.05;      % Probability of Mutation
 PopSize = 1000;  % Population Size
 Gen = 200;      % Generation
 Len1 = 18;      % Bits of x1 
@@ -57,8 +57,8 @@ for i=1:Gen
     end
     
     % Selection Operator
-    Genes = RouletteSelection(Genes, Fits, PopSize);
-    %Genes = TournamentSelection(Genes, Fits, PopSize);
+    %Genes = RouletteSelection(Genes, Fits, PopSize);
+    Genes = TournamentSelection(Genes, Fits, PopSize);
     
     % CrossOver Operator
     Genes = CrossOver(Genes, Pc);
