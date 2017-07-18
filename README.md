@@ -11,8 +11,8 @@ Maximize the objective function **F**, given the domain of **X** and a required 
 ### Representation
 #### Binary String Representation
 - The domain of `xj` is `[aj, bj]` and the required precision is four places after the decimal point.
-- The precision requirement implies that the range of domain of each variable should be divided into at least `(bj - aj)*10^4` size ranges.
-- The required bits (denoted with `mj`) for a variable is calculated as follows:
+- The precision requirement implies that the range of domain of each variable should be divided into at least `(bj - aj) * 10^4` size ranges.
+- The required bits (denoted with `mj`) for a variable is calculated as follows:
 `2^(mj - 1) < (bj - aj) * 10^4 <= 2^mj - 1`
 - The mapping from a binary string to a real number for variable `xj` is completed as follows:`xj = aj + decimal(substring j) * (bj - aj) / (2^mj - 1)`
 
