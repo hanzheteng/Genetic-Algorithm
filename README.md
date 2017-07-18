@@ -12,16 +12,28 @@ Maximize the objective function **F**, given the domain of **X** and a required 
 #### Binary String Representation
 - The domain of `xj` is `[aj, bj]` and the required precision is four places after the decimal point.
 - The precision requirement implies that the range of domain of each variable should be divided into at least `(bj - aj)*10^4` size ranges.
-- The required bits (denoted with `mj`) for a variable is calculated as follows: ![](https://github.com/hanzheteng/Genetic-Algorithm/blob/master/doc/encoding.png)
-- The mapping from a binary string to a real number for variable `xj` is completed as follows: ![](https://github.com/hanzheteng/Genetic-Algorithm/blob/master/doc/decoding.png)
+- The required bits (denoted with `mj`) for a variable is calculated as follows:
+`2^(mj - 1) < (bj - aj) * 10^4 <= 2^mj - 1`
+- The mapping from a binary string to a real number for variable `xj` is completed as follows:`xj = aj + decimal(substring j) * (bj - aj) / (2^mj - 1)`
 
 ### Selection Operator
 #### Roulette Wheel Selection
 - In most practices, a roulette wheel approach is adopted as the selection procedure, which is one of the fitness-proportional selection and can select a new population with respect to the probability distribution based on fitness values.
 - The roulette wheel can be constructed with the following steps:
-![]((https://github.com/hanzheteng/Genetic-Algorithm/blob/master/doc/selection.png))
-- For Roulette Wheel Selection, the best mutation probability is around **0.01**.
+
+>step 1: Calculate the total fitness for the population
+
+>step 2: Calculate selection probability `pk` for each chromosome `vk`
+
+>step 3: Calculate cumulative probability `qk` for each chromosome `vk`
+
+>step 4: Generate a random number `r` from the range `[0, 1]`.
+
+>step 5: If `r <= q1`, then select the first chromosome `v1`; otherwise, select the kth chromosome `vk` ( `2 <= k <= popSize` ) such that `qk-1 < r <= qk`.
+
+- For Roulette Wheel Selection, due to a **low selection pressure**, the best mutation probability is around **0.01**.
 #### Tournament Selection
+
 >Tournament selection:  tournament size = t
 
 >    Repeat t times: choose a random individual from the pop and remember its fitness
@@ -30,7 +42,7 @@ Maximize the objective function **F**, given the domain of **X** and a required 
 
 - If `t = 2`, it is called Binary Tournament Selection.
 
-- For Binary Tournament Selection, due to the high **selection pressure**, the best mutation probability is around **0.05**.
+- For Binary Tournament Selection, due to a **high selection pressure**, the best mutation probability is around **0.05**.
 
 ### Crossover Operator
 #### Two Cut Points Crossover
